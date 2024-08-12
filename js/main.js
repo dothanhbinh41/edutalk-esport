@@ -33,6 +33,11 @@ function menuClick(element, id) {
 
 
 
+        $('#btn-term-and-condition').on('click', function (e) { 
+            e.stopPropagation();
+            $('#popup-term-and-condition').toggleClass('toggled'); 
+        });
+
         // Main Header  
         var headerSelector = document.querySelector(".sticky-header");
         var triggerPoint = $('.header').height();
