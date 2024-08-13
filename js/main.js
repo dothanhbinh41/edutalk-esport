@@ -1,20 +1,48 @@
 /*===================================================
     Template Scripts
 ====================================================*/
-(function($){ "use strict";
+function menuClick(element, id) { 
+    var target = $(`#${id}`);
+    var windowHeight = $(window).height();
+    var targetOffset = target.offset().top;
+    var targetHeight = target.outerHeight();
+
+    var scrollPosition = targetOffset - (windowHeight / 2) + (targetHeight / 2);
+
+    $('html, body').animate({
+        scrollTop: scrollPosition
+    }, 100);
+
+    var menuSelector = document.querySelector(".active");
+    menuSelector.removeAttribute("class"); 
+    element.addClass('active');
+}
+(function ($) {
+    "use strict";
 
     // Preloader     
-    $(window).on('load', function() {
+    $(window).on('load', function () {
         $('body').addClass('loaded');
     });
 
-    $(document).ready(function() {
-        
+
+    $(document).ready(function () {
+        $('html, body').animate({
+            scrollTop: 0
+        });
+
+
+
+        $('#btn-term-and-condition').on('click', function (e) { 
+            e.stopPropagation();
+            $('#popup-term-and-condition').toggleClass('toggled'); 
+        });
+
         // Main Header  
         var headerSelector = document.querySelector(".sticky-header");
         var triggerPoint = $('.header').height();
         var yOffset = 0;
- 
+
 
         if ($('.primary-header').length) {
             $('.header .primary-header .burger-menu').on("click", function () {
@@ -76,31 +104,31 @@
                 $('#popup-search-box').removeClass('toggled');
             });
         });
-        
+
         // Button Style
-		$('.default-btn, .wc-forward').append('<span></span>');
-		$('.default-btn, .wc-forward').on('mouseenter', function (e) {
-			var parentOffset = $(this).offset(),
-				relX = e.pageX - parentOffset.left,
-				relY = e.pageY - parentOffset.top;
-			$(this).find('span').css({ top: relY, left: relX })
-		}).on('mouseout', function (e) {
-			var parentOffset = $(this).offset(),
-				relX = e.pageX - parentOffset.left,
-				relY = e.pageY - parentOffset.top;
-			$(this).find('span').css({ top: relY, left: relX })
-		});
-        
+        $('.default-btn, .wc-forward').append('<span></span>');
+        $('.default-btn, .wc-forward').on('mouseenter', function (e) {
+            var parentOffset = $(this).offset(),
+                relX = e.pageX - parentOffset.left,
+                relY = e.pageY - parentOffset.top;
+            $(this).find('span').css({ top: relY, left: relX })
+        }).on('mouseout', function (e) {
+            var parentOffset = $(this).offset(),
+                relX = e.pageX - parentOffset.left,
+                relY = e.pageY - parentOffset.top;
+            $(this).find('span').css({ top: relY, left: relX })
+        });
+
         //Range Slider
-        if( $('body').hasClass('shop') ){
+        if ($('body').hasClass('shop')) {
             var slider = document.getElementById("price-range");
             var output = document.getElementById("price-output");
             output.innerHTML = "$" + slider.value;
-            slider.oninput = function() {
-                output.innerHTML =  "$"+this.value;
+            slider.oninput = function () {
+                output.innerHTML = "$" + this.value;
             }
         }
-        
+
         //Swiper Slider For Shop
         var swiper = new Swiper(".product-gallary-thumb", {
             spaceBetween: 10,
@@ -142,7 +170,7 @@
                 prevEl: ".carousel-wrap .swiper-prev",
             },
         });
-        
+
         //Testimonial Carousel  
         var swiperTestimonial = new Swiper(".testimonial-carousel", {
             slidesPerView: 1,
@@ -161,7 +189,7 @@
                 }
             }
         });
-        
+
         //Team Carousel  
         var swiperTeam = new Swiper(".team-carousel", {
             slidesPerView: "4",
@@ -198,7 +226,7 @@
                 }
             }
         });
-        
+
         //Shop Carousel  
         var swiperShop = new Swiper(".shop-carousel", {
             slidesPerView: "4",
@@ -235,7 +263,7 @@
                 }
             }
         });
-        
+
         //Sponsor Carousel  
         var swiperSponsor = new Swiper(".sponsor-carousel", {
             slidesPerView: "5",
@@ -268,7 +296,7 @@
                 }
             }
         });
-        
+
         // Venobox Active
         new VenoBox({
             selector: '.dl-video-popup, .dl-img-popup',
@@ -277,7 +305,7 @@
             infinigall: true,
             spinner: 'plane',
         });
-        
+
         // Custom Cursor
         $('body').append('<div class="dl-cursor"></div>');
         var cursor = $('.dl-cursor'),
@@ -309,40 +337,40 @@
                 cursor.addClass('cross');
             });
         });
-        
+
         // Odometer
         $('.odometer').waypoint(
-            function() {
+            function () {
                 var odo = $(".odometer");
-                odo.each(function() {
+                odo.each(function () {
                     var countNumber = $(this).attr("data-count");
                     $(this).html(countNumber);
                 });
             }, {
-                offset: "80%",
-                triggerOnce: true
-            }
+            offset: "80%",
+            triggerOnce: true
+        }
         );
-        
+
         // On Click Sound
         var obj = document.createElement("audio");
-            obj.src = "./audio/click.wav";
-            obj.volume = 1;
-            obj.autoPlay = false;
-            obj.preLoad = true;
-            obj.controls = true;
-            
-        $(".default-btn, .swiper-nav, .dl-video-popup, .scroll-to-top, .search-icon, .sponsor-item, .swiper-pagination-bullet, .read-more").on('click', function() {
+        obj.src = "./audio/click.wav";
+        obj.volume = 1;
+        obj.autoPlay = false;
+        obj.preLoad = true;
+        obj.controls = true;
+
+        $(".default-btn, .swiper-nav, .dl-video-popup, .scroll-to-top, .search-icon, .sponsor-item, .swiper-pagination-bullet, .read-more").on('click', function () {
             obj.play();
         });
-        
+
         // Current Year
-        var currentYear  = new Date().getFullYear();
+        var currentYear = new Date().getFullYear();
         $('#currentYear').append(currentYear);
 
         // Scrool To Top
         var scrollTop = $("#scroll-top");
-        $(window).on('scroll', function() {
+        $(window).on('scroll', function () {
             var topPos = $(this).scrollTop();
             if (topPos > 100) {
                 $('#scrollup').removeClass('hide');
@@ -354,10 +382,10 @@
             }
         });
 
-        $(scrollTop).on("click", function() {
+        $(scrollTop).on("click", function () {
             $('html, body').animate({
                 scrollTop: 0
-            },0);
+            }, 0);
             return false;
         });
 
@@ -365,7 +393,7 @@
         new WOW().init();
 
         // MailChimp
-        if ($('.subscribe-form').length>0) {
+        if ($('.subscribe-form').length > 0) {
             /*  MAILCHIMP  */
             $('.subscribe-form').ajaxChimp({
                 language: 'en',
@@ -379,11 +407,11 @@
                 $('#subscribe-result').addClass('subs-result');
                 $('.subscription-success').text(resp.msg).fadeIn();
                 $('.subscription-error').fadeOut();
-                setTimeout(function(){
+                setTimeout(function () {
                     $('#subscribe-result').removeClass('subs-result');
                     $('.subscription-success').fadeOut();
                 }, 5000);
-            } else if(resp.result === 'error') {
+            } else if (resp.result === 'error') {
                 $('#subscribe-result').addClass('subs-result');
                 $('.subscription-error').text(resp.msg).fadeIn();
             }
@@ -397,7 +425,7 @@
             4: 'The username portion of the email address is invalid (the portion before the @: )',
             5: 'This email address looks fake or invalid. Please enter a real email address'
         };
-        
+
     });
 
 })(jQuery);
