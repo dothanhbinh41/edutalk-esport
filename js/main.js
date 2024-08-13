@@ -299,7 +299,7 @@ function menuClick(element, id) {
 
         // Venobox Active
         new VenoBox({
-            selector: '.dl-video-popup, .dl-img-popup',
+            selector: '.dl-video-popup, .dl-img-popup, .menu-inline',
             bgcolor: 'transparent',
             numeration: true,
             infinigall: true,
