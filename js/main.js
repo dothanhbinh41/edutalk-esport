@@ -300,7 +300,7 @@ function menuClick(element, id) {
         // Venobox Active
         new VenoBox({
             selector: '.dl-video-popup, .dl-img-popup, .menu-inline',
-            bgcolor: 'transparent',
+            bgcolor: '#800C0C35',
             numeration: true,
             infinigall: true,
             spinner: 'plane',

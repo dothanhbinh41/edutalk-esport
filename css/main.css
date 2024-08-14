@@ -28,6 +28,10 @@
 */
 
 /*** 1.0 - Hero ***/
+.vbox-inline  {
+    overflow-y: auto; 
+    max-height: 90vh;
+}
 html {
     scroll-behavior: smooth;
 }
